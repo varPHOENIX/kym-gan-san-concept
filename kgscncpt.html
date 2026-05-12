@@ -1,0 +1,933 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Кым-Ган-Сан — Корейская кухня в Алматы</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Noto+Serif+KR:wght@400;600;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --red:#C0392B; --red-dk:#96281B; --red-lt:#F5E6E4;
+      --ink:#0F0F0F; --muted:#6B6B6B; --line:#E8E8E8;
+      --bg:#FAFAF8; --white:#FFFFFF; --gold:#C9A84C;
+      --wolt:#009DE0; --wolt-dk:#007DB3;
+      --radius:18px; --shadow:0 4px 32px rgba(0,0,0,.08); --shadow-lg:0 12px 48px rgba(0,0,0,.13);
+    }
+    html{scroll-behavior:smooth;}
+    body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--ink);-webkit-font-smoothing:antialiased;overflow-x:hidden;}
+
+    /* STICKY BAR */
+    .sticky-bar{position:fixed;bottom:0;left:0;right:0;z-index:1000;background:var(--white);border-top:1px solid var(--line);padding:14px 20px 18px;display:flex;gap:10px;box-shadow:0 -4px 24px rgba(0,0,0,.09);transition:opacity .2s;}
+    .sticky-bar a{flex:1;display:flex;align-items:center;justify-content:center;gap:7px;padding:14px 10px;border-radius:14px;font-size:14px;font-weight:600;text-decoration:none;transition:transform .15s;}
+    .sticky-bar a:active{transform:scale(.97);}
+    .btn-call{background:var(--red);color:#fff;box-shadow:0 4px 18px rgba(192,57,43,.35);}
+    .btn-wa-sticky{background:#25D366;color:#fff;box-shadow:0 4px 18px rgba(37,211,102,.35);}
+    .sticky-bar svg{width:18px;height:18px;flex-shrink:0;}
+
+    /* NAV */
+    nav{position:fixed;top:0;left:0;right:0;z-index:900;backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);background:rgba(250,250,248,.88);border-bottom:1px solid rgba(232,232,232,.7);}
+    .nav-inner{max-width:960px;margin:0 auto;padding:0 24px;height:60px;display:flex;align-items:center;justify-content:space-between;}
+    .nav-logo{font-family:'Noto Serif KR',serif;font-size:18px;font-weight:700;color:var(--ink);text-decoration:none;}
+    .nav-logo span{color:var(--red);}
+    .nav-links{display:flex;gap:28px;list-style:none;}
+    .nav-links a{font-size:13px;font-weight:500;color:var(--muted);text-decoration:none;transition:color .15s;}
+    .nav-links a:hover{color:var(--ink);}
+    @media(max-width:600px){.nav-links{display:none;}}
+
+    /* HERO */
+    .hero{min-height:100svh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:100px 24px 120px;position:relative;overflow:hidden;background:linear-gradient(160deg,#fff 0%,#fdf3f1 55%,#faeae7 100%);}
+    .hero::before{content:'금강산';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-family:'Noto Serif KR',serif;font-size:clamp(140px,40vw,340px);font-weight:700;color:rgba(192,57,43,.05);pointer-events:none;white-space:nowrap;line-height:1;}
+    .hero-badge{display:inline-flex;align-items:center;gap:6px;background:var(--red-lt);color:var(--red);font-size:12px;font-weight:600;letter-spacing:.6px;text-transform:uppercase;padding:6px 14px;border-radius:100px;margin-bottom:24px;}
+    .hero-badge::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--red);flex-shrink:0;}
+    .hero h1{font-family:'Noto Serif KR',serif;font-size:clamp(38px,10vw,72px);font-weight:700;line-height:1.1;letter-spacing:-.5px;margin-bottom:20px;color:var(--ink);}
+    .hero h1 em{font-style:normal;color:var(--red);}
+    .hero p{font-size:clamp(16px,3vw,20px);color:var(--muted);max-width:520px;line-height:1.65;margin-bottom:40px;}
+    .hero-ctas{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;}
+    .btn-primary{display:inline-flex;align-items:center;gap:9px; min-width: 200px; justify-content: center; background:var(--red);color:#fff;font-size:15px;font-weight:600;padding:16px 30px;border-radius:14px;text-decoration:none;box-shadow:0 6px 24px rgba(192,57,43,.38);transition:background .15s,transform .15s,box-shadow .15s;}
+    .btn-primary:hover{background:var(--red-dk);transform:translateY(-2px);box-shadow:0 10px 32px rgba(192,57,43,.45);}
+    .btn-wa{display:inline-flex;align-items:center;min-width: 200px;justify-content: center;gap:9px;background:#25D366;color:#fff;font-size:15px;font-weight:600;padding:16px 30px;border-radius:14px;text-decoration:none;box-shadow:0 6px 24px rgba(37,211,102,.3);transition:background .15s,transform .15s;}
+    .btn-wa:hover{background:#1aad52;transform:translateY(-2px);}
+    .btn-wolt{display:inline-flex;align-items:center;gap:9px;background:var(--wolt);color:#fff;font-size:15px;font-weight:600;padding:16px 30px;border-radius:14px;text-decoration:none;box-shadow:0 6px 24px rgba(0,157,224,.35);transition:background .15s,transform .15s;}
+    .btn-wolt:hover{background:var(--wolt-dk);transform:translateY(-2px);}
+    .btn-ghost{display:inline-flex;align-items:center;gap:9px;background:transparent;color:var(--ink);font-size:15px;font-weight:600;padding:16px 30px;border-radius:14px;border:1.5px solid #a1a1a1;;text-decoration:none;transition:border-color .15s,background .15s;}
+    .btn-ghost:hover{border-color:#6d6d6d;transform:translateY(-2px);transition: transform .15s;background:rgba(55, 55, 55, 0.03);}
+    .hero-meta{margin-top:48px;display:flex;align-items:center;gap:24px;flex-wrap:wrap;justify-content:center;}
+    .hero-stat{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--muted);font-weight:500;}
+    .hero-stat .stat-icon{font-size:18px;line-height:1;}
+    .hero-stat strong{color:var(--ink);font-size:14px;}
+    .hero-divider{width:1px;height:20px;background:var(--line);}
+
+    /* SECTION */
+    section{padding:100px 24px;}
+    .section-inner{max-width:960px;margin:0 auto;}
+    .section-label{font-size:11px;font-weight:700;letter-spacing:1.4px;text-transform:uppercase;color:var(--red);margin-bottom:12px;}
+    .section-title{font-family:'Noto Serif KR',serif;font-size:clamp(26px,5vw,40px);font-weight:700;line-height:1.2;color:var(--ink);margin-bottom:16px;}
+    .section-sub{font-size:17px;color:var(--muted);line-height:1.7;max-width:600px;}
+
+    /* ABOUT */
+    #about{background:var(--white);}
+    .about-grid{display:grid;grid-template-columns:1fr 1fr;gap:64px;margin-top:56px;}
+    .about-card{background:linear-gradient(135deg,#fdf3f1,#f9e8e5);border-radius:24px;padding:56px 40px;text-align:center;position:relative;align-content:center;}
+    .about-emoji{font-size:72px;line-height:1;margin-bottom:16px;display:block;}
+    .about-card-title{font-family:'Noto Serif KR',serif;font-size:22px;font-weight:700;color:var(--ink);margin-bottom:8px;}
+    .about-card-sub{font-size:14px;color:var(--muted);}
+    .about-float{position:absolute;bottom:-18px;right:-18px;background:var(--white);border-radius:14px;padding:16px 22px;box-shadow:var(--shadow);display:flex;align-items:center;gap:10px;}
+    .about-float-icon{font-size:26px;}
+    .about-float-text{font-size:12px;color:var(--muted);}
+    .about-float-text strong{display:block;font-size:14px;font-weight:700;color:var(--ink);}
+    .about-pillars{display:flex;flex-direction:column;gap:24px;}
+    .pillar{display:flex;gap:16px;align-items:flex-start;}
+    .pillar-icon{width:44px;height:44px;border-radius:12px;background:var(--red-lt);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:20px;}
+    .pillar-body h4{font-size:15px;font-weight:700;margin-bottom:4px;}
+    .pillar-body p{font-size:14px;color:var(--muted);line-height:1.6;}
+    @media(max-width:700px){.about-grid{grid-template-columns:1fr;gap:40px;}.about-float{right:0;}}
+
+    /* MENU */
+    #menu{background:var(--bg);}
+    .menu-tabs{display:flex;gap:8px;flex-wrap:wrap;margin:40px 0 32px;}
+    .tab-btn{padding:9px 20px;border-radius:100px;border:1.5px solid var(--line);background:transparent;font-size:13px;font-weight:600;color:var(--muted);cursor:pointer;transition:all .15s;font-family:'Inter',sans-serif;}
+    .tab-btn.active,.tab-btn:hover{background:var(--red);color:#fff;border-color:var(--red);}
+    .menu-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px;}
+    .menu-card{background:var(--white);border-radius:var(--radius);padding:24px;box-shadow:var(--shadow);display:none;flex-direction:column;min-height:260px;transition:transform .15s;}
+    .menu-card.show{display:flex;}
+    .menu-card:hover{transform:translateY(-3px);box-shadow:var(--shadow-lg);}
+    .menu-card-icon{font-size:36px;margin-bottom:14px;display:block;}
+    .menu-card h3{font-size:16px;font-weight:700;margin-bottom:6px;color:var(--ink);}
+    .menu-card p{font-size:13px;color:var(--muted);line-height:1.6;display: box;line-clamp: 3;box-orient: vertical;}
+    .menu-card-footer{margin-top:auto;padding-top:16px;border-top:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;}
+    .menu-tag{font-size:11px;font-weight:600;padding:4px 10px;border-radius:100px;background:var(--red-lt);color:var(--red);}
+    .menu-popular{background:#fef9e7;color:#b7791f;}
+    .menu-price{font-size:15px;font-weight:700;color:var(--ink);}
+    /* Wolt order nudge after menu */
+    .menu-cta { margin-top:44px; background:linear-gradient(135deg,#e8f6fd,#d0ecf9); border-radius:20px; padding:32px 36px; display:flex; align-items:center; justify-content:space-between; gap:24px; flex-wrap:wrap; }
+    .menu-cta h3 { font-size:20px; font-weight:700; color:var(--ink); margin-bottom:12px; }
+    .menu-cta p { font-size:14px; color:var(--muted); }
+    .btn-wolt { display:inline-flex; align-items:center; gap:9px; background:var(--wolt); color:#fff; font-size:15px; font-weight:700; padding:16px 30px; border-radius:14px; text-decoration:none; box-shadow:0 6px 22px rgba(0,157,224,.38); transition:background .15s,transform .15s; white-space:nowrap; }
+    .btn-wolt:hover { background:var(--wolt-dk); transform:translateY(-2px); }
+
+    /* REVIEWS */
+    #reviews{background:var(--white);}
+    .rating-hero{display:flex;align-items:center;gap:32px;flex-wrap:wrap;margin:40px 0 48px;padding:36px 40px;background:linear-gradient(135deg,#fdf3f1,#faeae7);border-radius:24px;}
+    .rating-number{font-family:'Noto Serif KR',serif;font-size:72px;font-weight:700;color:var(--red);line-height:1;}
+    .stars{font-size:22px;letter-spacing:2px;color:var(--gold);margin-bottom:4px;}
+    .rating-meta{font-size:14px;color:var(--muted);}
+    .rating-meta strong{color:var(--ink);}
+    .rating-platforms{display:flex;gap:16px;flex-wrap:wrap;margin-top:12px;}
+    .platform-badge{padding:8px 16px;border-radius:100px;background:var(--white);font-size:12px;font-weight:600;color:var(--muted);box-shadow:0 2px 8px rgba(0,0,0,.06);}
+    .reviews-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px;margin-bottom:40px;}
+    .review-card{background:var(--bg);border-radius:var(--radius);padding:28px;border:1px solid var(--line);}
+    .review-stars{font-size:14px;color:var(--gold);margin-bottom:12px;}
+    .review-text{font-size:15px;line-height:1.7;color:var(--ink);margin-bottom:16px;font-style:italic;}
+    .review-author{font-size:13px;font-weight:600;color:var(--muted);}
+
+    /* LOCATION */
+    #location{background:var(--bg);}
+    .location-grid{display:grid;grid-template-columns:1fr 1fr;gap:32px;margin-top:48px;align-items:center;}
+    .branch-card{background:var(--white);border-radius:var(--radius);padding:32px;box-shadow:var(--shadow);}
+    .branch-card h3{font-size:18px;font-weight:700;margin-bottom:20px;padding-bottom:16px;border-bottom:1px solid var(--line);}
+    .info-row{display:flex;gap:12px;align-items:flex-start;margin-bottom:16px;}
+    .info-icon{width:36px;height:36px;border-radius:10px;background:var(--red-lt);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:16px;}
+    .info-text{font-size:14px;line-height:1.6;color:var(--muted);}
+    .info-text strong{display:block;font-size:14px;font-weight:600;color:var(--ink);margin-bottom:2px;}
+    .info-text a{color:var(--red);text-decoration:none;font-weight:600;}
+    .map-link{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;padding:13px;background:var(--red-lt);color:var(--red);border-radius:12px;font-size:14px;font-weight:600;text-decoration:none;margin-top:8px;transition:background .15s;}
+    .map-link:hover{background:#efd5d1;}
+    @media(max-width:700px){.location-grid{grid-template-columns:1fr;}}
+
+    /* FINAL CTA */
+    #cta { background:linear-gradient(140deg,var(--red) 0%,#8B1A10 100%); text-align:center; padding:96px 24px; position:relative; overflow:hidden; }
+    #cta::before { content:'금강산'; position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); font-family:'Noto Serif KR',serif; font-size:clamp(100px,30vw,260px); font-weight:700; color:rgba(255,255,255,.05); pointer-events:none; white-space:nowrap; line-height:1; }
+    #cta .section-label { color:rgba(255,255,255,.55); }
+    #cta .section-title { color:#fff; font-size:clamp(28px,5.5vw,46px); }
+    #cta .section-sub { color:rgba(255,255,255,.78); margin:0 auto 44px; }
+    .cta-action-group { display:flex; gap:14px; justify-content:center; flex-wrap:wrap; margin-bottom:28px; }
+    .btn-cta-white { display:inline-flex; align-items:center; gap:10px; background:#fff; color:var(--red); font-size:16px; font-weight:800; padding:18px 36px; border-radius:16px; text-decoration:none; box-shadow:0 10px 36px rgba(0,0,0,.2); transition:transform .15s,box-shadow .15s; }
+    .btn-cta-white:hover { transform:translateY(-2px); box-shadow:0 16px 44px rgba(0,0,0,.28); }
+    .btn-cta-wa { display:inline-flex; align-items:center; gap:10px; background:#25D366; color:#fff; font-size:15px; font-weight:700; padding:18px 30px; border-radius:16px; text-decoration:none; box-shadow:0 8px 28px rgba(0,0,0,.18); transition:transform .15s,background .15s; }
+    .btn-cta-wa:hover { background:#1aad52; transform:translateY(-2px); }
+    .cta-micro { font-size:13px; color:rgba(255,255,255,.5); }
+    .cta-micro a { color:rgba(255,255,255,.7); text-decoration:underline; }
+
+    /* FOOTER */
+    footer{background:var(--ink);color:rgba(255,255,255,.5);padding:48px 24px;text-align:center;}
+    .footer-inner{max-width:960px;margin:0 auto;}
+    .footer-logo{font-family:'Noto Serif KR',serif;font-size:22px;font-weight:700;color:#fff;margin-bottom:12px;}
+    .footer-logo span{color:var(--red);}
+    .footer-tagline{font-size:13px;margin-bottom:28px;}
+    .footer-links{display:flex;gap:20px;justify-content:center;flex-wrap:wrap;margin-bottom:28px;}
+    .footer-links a{color:rgba(255,255,255,.55);font-size:13px;font-weight:500;text-decoration:none;transition:color .15s;}
+    .footer-links a:hover{color:#fff;}
+    .footer-copy{font-size:12px;}
+    svg{display:block;}
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <a href="#" class="nav-logo">Кым-<span>Ган-Сан</span></a>
+    <ul class="nav-links">
+      <li><a href="#about">О нас</a></li>
+      <li><a href="#menu">Меню</a></li>
+      <li><a href="#reviews">Отзывы</a></li>
+      <li><a href="#location">Адреса</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-badge">Корейская &amp; Европейская кухня · Алматы</div>
+  <h1>Корейская кухня,<br/>которую <em>не забывают</em></h1>
+  <p>Домашняя корейская кухня с щедрыми порциями, уютной атмосферой и рецептами, проверенными временем. Две точки по всему городу.</p>
+  <div class="hero-ctas">
+    <a href="tel:+7 775 841 1173" class="btn-primary">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 8.81 19.79 19.79 0 01.01 2.18 2 2 0 012 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+      Позвонить
+    </a>
+    <a href="https://wa.me/77758411173" target="_blank" class="btn-wa">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 00-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.126.555 4.12 1.52 5.854L0 24l6.334-1.48A11.953 11.953 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 01-5.004-1.374l-.36-.213-3.76.877.915-3.653-.234-.376A9.818 9.818 0 1112 21.818z"/></svg>
+      WhatsApp
+    </a>
+    <a href="#menu" class="btn-ghost">Смотреть меню →</a>
+  </div>
+  <div class="hero-meta">
+    <div class="hero-stat">
+      <span class="stat-icon">⭐</span>
+      <div><strong>4.5 / 5</strong> на 2ГИС</div>
+    </div>
+    <div class="hero-divider"></div>
+    <div class="hero-stat">
+      <span class="stat-icon">💬</span>
+      <div><strong>198+ отзывов</strong></div>
+    </div>
+    <div class="hero-divider"></div>
+    <div class="hero-stat">
+      <span class="stat-icon">📍</span>
+      <div><strong>2 заведения</strong> в Алматы</div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-inner">
+    <div class="section-label">О заведении</div>
+    <h2 class="section-title">Кухня, которая<br/>возвращает домой</h2>
+    <div class="about-grid">
+      <div class="about-card">
+        <span class="about-emoji">🍜</span>
+        <div class="about-card-title">Кым-Ган-Сан</div>
+        <div class="about-card-sub">Сеть кафе корейской кухни · Алматы</div>
+        <div class="about-float">
+          <span class="about-float-icon">🏆</span>
+          <div class="about-float-text"><strong>86% рекомендуют</strong>по данным Glovo</div>
+        </div>
+      </div>
+      <div class="about-pillars">
+        <p class="section-sub" style="margin-bottom:28px;">Сеть кафе «Кым-Ган-Сан» приглашает отведать настоящий вкус корейской и европейской кухни. Два уютных заведения по всему городу Алматы </br>— для обеда, ужина, банкета или доставки на дом.</p>
+        <div class="pillar"><div class="pillar-icon">🥢</div><div class="pillar-body"><h4>Аутентичные рецепты</h4><p>Кукси, кимчи-тиге, пулькоги и пибимпаб </br>— блюда по традиционным корейским рецептам.</p></div></div>
+        <div class="pillar"><div class="pillar-icon">🍽️</div><div class="pillar-body"><h4>Щедрые порции</h4><p>Гости отмечают: «Порции просто огромные!» </br>— наедаетесь и ещё берёте с собой домой.</p></div></div>
+        <div class="pillar"><div class="pillar-icon">🏡</div><div class="pillar-body"><h4>Домашняя атмосфера</h4><p>VIP-зал, летняя терраса, кабинки и топчаны </br>— каждый найдёт удобный формат.</p></div></div>
+        <div class="pillar"><div class="pillar-icon">🎉</div><div class="pillar-body"><h4>Банкеты и мероприятия</h4><p>Проведение банкетов, поминальных обедов, корпоративов. Постное меню по запросу.</p></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MENU -->
+<section id="menu">
+  <div class="section-inner">
+    <div class="section-label">Наше меню</div>
+    <h2 class="section-title">Что попробовать</h2>
+    <p class="section-sub">Цены актуальны на дату обновления. Полный каталог — на Wolt.</p>
+    <div class="menu-tabs">
+      <button class="tab-btn active" data-cat="popular">Популярное</button>
+      <button class="tab-btn" data-cat="soups">Первые блюда</button>
+      <button class="tab-btn" data-cat="beef">Говядина</button>
+      <button class="tab-btn" data-cat="chicken">Курица</button>
+      <button class="tab-btn" data-cat="salads">Салаты</button>
+      <button class="tab-btn" data-cat="warm">Тёплые салаты</button>
+      <button class="tab-btn" data-cat="snacks">Закуски</button>
+      <button class="tab-btn" data-cat="fish">Рыба</button>
+      <button class="tab-btn" data-cat="sides">Гарниры</button>
+    </div>
+    <div class="menu-grid">
+
+      <!-- ПОПУЛЯРНОЕ -->
+      <div class="menu-card show" data-cat="popular soups">
+        <span class="menu-card-icon">🍜</span>
+        <h3>Кукси</h3>
+        <p>Лапша, огурцы, редька, мясо, капуста, омлет, кунжутные семечки</p>
+        <div class="menu-card-footer"><span class="menu-tag menu-popular">⭐ Популярное</span><span class="menu-price">3 500 ₸</span></div>
+      </div>
+      <div class="menu-card show" data-cat="popular beef">
+        <span class="menu-card-icon">🍱</span>
+        <h3>Пибим Паб</h3>
+        <p>Жареный рис, мясо говядины, папоротник, овощи, зелень, морковь, яйцо</p>
+        <div class="menu-card-footer"><span class="menu-tag menu-popular">⭐ Популярное</span><span class="menu-price">4 250 ₸</span></div>
+      </div>
+      <div class="menu-card show" data-cat="popular snacks">
+        <span class="menu-card-icon">🫓</span>
+        <h3>Пегодя</h3>
+        <p>Дрожжевое тесто на пару, капуста, мясо (3 шт), соевый соус</p>
+        <div class="menu-card-footer"><span class="menu-tag menu-popular">⭐ Популярное</span><span class="menu-price">3 350 ₸</span></div>
+      </div>
+      <div class="menu-card show" data-cat="popular snacks">
+        <span class="menu-card-icon">🌯</span>
+        <h3>Ким Паб Мясо</h3>
+        <p>Рис, мясо говядины, листья нори, перец, морковь, огурец, соевый соус</p>
+        <div class="menu-card-footer"><span class="menu-tag menu-popular">⭐ Популярное</span><span class="menu-price">3 550 ₸</span></div>
+      </div>
+      <div class="menu-card show" data-cat="popular soups">
+        <span class="menu-card-icon">🌶️</span>
+        <h3>Кимчи теге</h3>
+        <p>Пекинская капуста, тофу, яйцо, мясо</p>
+        <div class="menu-card-footer"><span class="menu-tag menu-popular">⭐ Популярное</span><span class="menu-price">3 800 ₸</span></div>
+      </div>
+      <div class="menu-card show" data-cat="popular beef">
+        <span class="menu-card-icon">🥩</span>
+        <h3>Пулькоги</h3>
+        <p>Маринованная говядина, листья салата, зелень, овощи, салаты 3 вида (рис не входит)</p>
+        <div class="menu-card-footer"><span class="menu-tag menu-popular">⭐ Популярное</span><span class="menu-price">7 000 ₸</span></div>
+      </div>
+      <div class="menu-card show" data-cat="popular snacks">
+        <span class="menu-card-icon">🥟</span>
+        <h3>Крахмальные пегодя</h3>
+        <p>Пегодя из крахмальной муки, мясо, капуста</p>
+        <div class="menu-card-footer"><span class="menu-tag menu-popular">⭐ Популярное</span><span class="menu-price">3 550 ₸</span></div>
+      </div>
+      <div class="menu-card show" data-cat="popular salads">
+        <span class="menu-card-icon">🥕</span>
+        <h3>Камди ча</h3>
+        <p>Бланшированный картофель</p>
+        <div class="menu-card-footer"><span class="menu-tag menu-popular">⭐ Популярное</span><span class="menu-price">2 050 ₸</span></div>
+      </div>
+      <div class="menu-card show" data-cat="popular salads">
+        <span class="menu-card-icon">🥗</span>
+        <h3>Морков ча</h3>
+        <p>Морковь заправленная по-корейски</p>
+        <div class="menu-card-footer"><span class="menu-tag menu-popular">⭐ Популярное</span><span class="menu-price">2 050 ₸</span></div>
+      </div>
+
+      <!-- ПЕРВЫЕ БЛЮДА (СУПЫ) -->
+      <div class="menu-card" data-cat="soups">
+        <span class="menu-card-icon">🍜</span>
+        <h3>Кукси</h3>
+        <p>Лапша, огурцы, редька, мясо, капуста, омлет, кунжутные семечки</p>
+        <div class="menu-card-footer"><span class="menu-tag">Хит</span><span class="menu-price">3 500 ₸</span></div>
+      </div>
+      <div class="menu-card" data-cat="soups">
+        <span class="menu-card-icon">🍲</span>
+        <h3>Кимчи Рамен</h3>
+        <p>Горячая лапша, яйцо, мясо, чимчи, грибы</p>
+        <div class="menu-card-footer"><span class="menu-tag">Суп</span><span class="menu-price">3 600 ₸</span></div>
+      </div>
+      <div class="menu-card" data-cat="soups">
+        <span class="menu-card-icon">🧀</span>
+        <h3>Сырный Рамен</h3>
+        <p>Горячая лапша, сыр</p>
+        <div class="menu-card-footer"><span class="menu-tag">Суп</span><span class="menu-price">3 350 ₸</span></div>
+      </div>
+      <div class="menu-card" data-cat="soups">
+        <span class="menu-card-icon">🌿</span>
+        <h3>Юккедян</h3>
+        <p>Папоротник, проросшие бобы, морская капуста, тофу, мясо говядина</p>
+        <div class="menu-card-footer"><span class="menu-tag">Острое</span><span class="menu-price">4 300 ₸</span></div>
+      </div>
+      <div class="menu-card" data-cat="soups">
+        <span class="menu-card-icon">🌶️</span>
+        <h3>Кимчи теге</h3>
+        <p>Пекинская капуста, тофу, яйцо, мясо</p>
+        <div class="menu-card-footer"><span class="menu-tag">Острое</span><span class="menu-price">3 800 ₸</span></div>
+      </div>
+      <div class="menu-card" data-cat="soups">
+        <span class="menu-card-icon">🫕</span>
+        <h3>Кимчи теге по-южнокорейски</h3>
+        <p>Пекинская капуста, тофу, грибы, мясо</p>
+        <div class="menu-card-footer"><span class="menu-tag">Острое</span><span class="menu-price">3 800 ₸</span></div>
+      </div>
+      <div class="menu-card" data-cat="soups">
+        <span class="menu-card-icon">🥣</span>
+        <h3>Пук Тяй</h3>
+        <p>Кабачки, грибы, листья перца, картофель, мясо</p>
+        <div class="menu-card-footer"><span class="menu-tag">Суп</span><span class="menu-price">3 800 ₸</span></div>
+      </div>
+      <div class="menu-card" data-cat="soups">
+        <span class="menu-card-icon">🌊</span>
+        <h3>Сираги Тямури</h3>
+        <p>Сушеная корейская капуста, тофу, мясо</p>
+        <div class="menu-card-footer"><span class="menu-tag">Суп</span><span class="menu-price">3 800 ₸</span></div>
+      </div>
+      <div class="menu-card" data-cat="soups">
+        <span class="menu-card-icon">🌿</span>
+        <h3>Меги Тямури</h3>
+        <p>Морская капуста, тофу, мясо</p>
+        <div class="menu-card-footer"><span class="menu-tag">Суп</span><span class="menu-price">3 800 ₸</span></div>
+      </div>
+      <div class="menu-card" data-cat="soups">
+        <span class="menu-card-icon">🦐</span>
+        <h3>Том Ям</h3>
+        <p>Креветки, мидия, шампиньоны, кокосовое молоко, палочки лемонграсса</p>
+        <div class="menu-card-footer"><span class="menu-tag">Острое</span><span class="menu-price">6 000 ₸</span></div>
+      </div>
+      <div class="menu-card" data-cat="soups">
+        <span class="menu-card-icon">🐟</span>
+        <h3>Суп с морепродуктами</h3>
+        <p>Креветки, мидия, морской коктейль, тофу, рыба</p>
+        <div class="menu-card-footer"><span class="menu-tag">Суп</span><span class="menu-price">5 700 ₸</span></div>
+      </div>
+
+      <!-- ГОВЯДИНА -->
+      <div class="menu-card" data-cat="beef">
+        <span class="menu-card-icon">🥩</span>
+        <h3>Пулькоги</h3>
+        <p>Маринованная говядина, листья салата, зелень, овощи, салаты 3 вида</p>
+        <div class="menu-card-footer"><span class="menu-tag">Хит</span><span class="menu-price">7 000 ₸</span></div>
+      </div>
+      <div class="menu-card" data-cat="beef">
+        <span class="menu-card-icon">🍱</span>
+        <h3>Пибим Паб</h3>
+        <p>Жареный рис, мясо говядины, папоротник, овощи, зелень, морковь, яйцо</p>
+        <div class="menu-card-footer"><span class="menu-tag">Хит</span><span class="menu-price">4 250 ₸</span></div>
+      </div>
+      <div class="menu-card" data-cat="beef">
+        <span class="menu-card-icon">🐄</span>
+        <h3>Джеюк покым из говядины</h3>
+        <p>Мясо говядина, перец светофор, соус остро-сладкий, кунжутные семечки</p>
+        <div class="menu-card-footer"><span class="menu-tag">Горячее</span><span class="menu-price">5 000 ₸</span></div>
+      </div>
+      <div class="menu-card" data-cat="beef">
+        <span class="menu-card-icon">🥟</span>
+        <h3>Манты</h3>
+        <p>Мясо говядина (5 шт)</p>
+        <div class="menu-card-footer"><span class="menu-tag">Горячее</span><span class="menu-price">4 250 ₸</span></div>
+      </div>
+      <div class="menu-card" data-cat="beef">
+        <span class="menu-card-icon">🍢</span>
+        <h3>Токпокки</h3>
+        <p>Рисовые брусочки в остро-сладком соусе, яичные блины, морковь</p>
+        <div class="menu-card-footer"><span class="menu-tag">Острое</span><span class="menu-price">3 600 ₸</span></div>
+      </div>
+      <div class="menu-card" data-cat="beef">
+        <span class="menu-card-icon">🍢</span>
+        <h3>Токпокки с мясом</h3>
+        <p>Рисовые брусочки в остро-сладком соусе, яичные блины, морковь, мясо</p>
+        <div class="menu-card-footer"><span class="menu-tag">Острое</span><span class="menu-price">4 450 ₸</span></div>
+      </div>
+      <div class="menu-card" data-cat="beef">
+        <span class="menu-card-icon">🌭</span>
+        <h3>Токпокки с сосисками</h3>
+        <p>Токпокки (рисовые лепёшки), соус средней остроты, сосиски</p>
+        <div class="menu-card-footer"><span class="menu-tag">Горячее</span><span class="menu-price">3 950 ₸</span></div>
+      </div>
+      <div class="menu-card" data-cat="beef">
+        <span class="menu-card-icon">🥟</span>
+        <h3>Пельмени без бульона</h3>
+        <p>Пельмени, мясо говядина</p>
+        <div class="menu-card-footer"><span class="menu-tag">Горячее</span><span class="menu-price">2 650 ₸</span></div>
+      </div>
+      <div class="menu-card" data-cat="beef">
+        <span class="menu-card-icon">🥟</span>
+        <h3>Пельмени жареные</h3>
+        <p>Пельмени жареные</p>
+        <div class="menu-card-footer"><span class="menu-tag">Горячее</span><span class="menu-price">2 650 ₸</span></div>
+      </div>
+      <div class="menu-card" data-cat="beef">
+        <span class="menu-card-icon">🥩</span>
+        <h3>Мясо по-китайски</h3>
+        <p>Маринованное мясо говядины, перец светофор, огурцы</p>
+        <div class="menu-card-footer"><span class="menu-tag">Горячее</span><span class="menu-price">4 250 ₸</span></div>
+      </div>
+      <div class="menu-card" data-cat="beef">
+        <span class="menu-card-icon">🫔</span>
+        <h3>Бризоль</h3>
+        <p>Мясо говядина, яйцо, майонез, зелень</p>
+        <div class="menu-card-footer"><span class="menu-tag">Горячее</span><span class="menu-price">4 250 ₸</span></div>
+      </div>
+      <div class="menu-card" data-cat="beef">
+        <span class="menu-card-icon">🥟</span>
+        <h3>Крахмальные пегодя</h3>
+        <p>Пегодя из крахмальной муки, мясо, капуста</p>
+        <div class="menu-card-footer"><span class="menu-tag">Горячее</span><span class="menu-price">3 550 ₸</span></div>
+      </div>
+      <div class="menu-card" data-cat="beef">
+        <span class="menu-card-icon">🥔</span>
+        <h3>Картофель с мясом и грибами</h3>
+        <p>Картофель, мясо, грибы</p>
+        <div class="menu-card-footer"><span class="menu-tag">Горячее</span><span class="menu-price">4 850 ₸</span></div>
+      </div>
+
+      <!-- КУРИЦА -->
+      <div class="menu-card" data-cat="chicken">
+        <span class="menu-card-icon">🐔</span>
+        <h3>Кан Пун Ги</h3>
+        <p>Курица в кисло-сладком соусе в кляре</p>
+        <div class="menu-card-footer"><span class="menu-tag">Хит</span><span class="menu-price">3 650 ₸</span></div>
+      </div>
+      <div class="menu-card" data-cat="chicken">
+        <span class="menu-card-icon">🍗</span>
+        <h3>Джеюк покым из курицы</h3>
+        <p>Филе курицы в остро-сладком соусе, болгарский перец, кунжутные семечки</p>
+        <div class="menu-card-footer"><span class="menu-tag">Горячее</span><span class="menu-price">3 350 ₸</span></div>
+      </div>
+      <div class="menu-card" data-cat="chicken">
+        <span class="menu-card-icon">🍗</span>
+        <h3>Курица в кляре</h3>
+        <p>Филе курицы в кляре, кетчуп</p>
+        <div class="menu-card-footer"><span class="menu-tag">Горячее</span><span class="menu-price">3 250 ₸</span></div>
+      </div>
+      <div class="menu-card" data-cat="chicken">
+        <span class="menu-card-icon">🍄</span>
+        <h3>Курица под грибным покрывалом</h3>
+        <p>Куриное бедро без косточки, шампиньоны, сливочный соус</p>
+        <div class="menu-card-footer"><span class="menu-tag">Горячее</span><span class="menu-price">3 650 ₸</span></div>
+      </div>
+      <div class="menu-card" data-cat="chicken">
+        <span class="menu-card-icon">🍜</span>
+        <h3>Удон из курицы</h3>
+        <p>Лапша удон, куриное филе</p>
+        <div class="menu-card-footer"><span class="menu-tag">Горячее</span><span class="menu-price">3 650 ₸</span></div>
+      </div>
+
+      <!-- САЛАТЫ -->
+      <div class="menu-card" data-cat="salads">
+        <span class="menu-card-icon">🌿</span>
+        <h3>Шпинат</h3>
+        <p>Шпинат, лук, помидор</p>
+        <div class="menu-card-footer"><span class="menu-tag">Салат</span><span class="menu-price">3 600 ₸</span></div>
+      </div>
+      <div class="menu-card" data-cat="salads">
+        <span class="menu-card-icon">🥗</span>
+        <h3>Ве-ча</h3>
+        <p>Огурцы, мясо, морковь, зелень</p>
+        <div class="menu-card-footer"><span class="menu-tag">Салат</span><span class="menu-price">3 400 ₸</span></div>
+      </div>
+      <div class="menu-card" data-cat="salads">
+        <span class="menu-card-icon">🌑</span>
+        <h3>Косари ча</h3>
+        <p>Папоротник, мясо</p>
+        <div class="menu-card-footer"><span class="menu-tag">Салат</span><span class="menu-price">4 350 ₸</span></div>
+      </div>
+      <div class="menu-card" data-cat="salads">
+        <span class="menu-card-icon">🥗</span>
+        <h3>Цезарь с курицей</h3>
+        <p>Филе курицы, сухари, листья айсберга, помидоры, соус пармезан</p>
+        <div class="menu-card-footer"><span class="menu-tag">Салат</span><span class="menu-price">3 750 ₸</span></div>
+      </div>
+      <div class="menu-card" data-cat="salads">
+        <span class="menu-card-icon">🥗</span>
+        <h3>Оливье</h3>
+        <p>Колбаса, яйца, огурцы, морковь, картофель</p>
+        <div class="menu-card-footer"><span class="menu-tag">Салат</span><span class="menu-price">3 250 ₸</span></div>
+      </div>
+      <div class="menu-card" data-cat="salads">
+        <span class="menu-card-icon">🥬</span>
+        <h3>Кимчи</h3>
+        <p>Корейская пекинская капуста</p>
+        <div class="menu-card-footer"><span class="menu-tag">Салат</span><span class="menu-price">2 050 ₸</span></div>
+      </div>
+      <div class="menu-card" data-cat="salads">
+        <span class="menu-card-icon">🥕</span>
+        <h3>Морков ча</h3>
+        <p>Морковь заправленная по-корейски</p>
+        <div class="menu-card-footer"><span class="menu-tag">Салат</span><span class="menu-price">2 050 ₸</span></div>
+      </div>
+      <div class="menu-card" data-cat="salads">
+        <span class="menu-card-icon">🥔</span>
+        <h3>Камди ча</h3>
+        <p>Бланшированный картофель</p>
+        <div class="menu-card-footer"><span class="menu-tag">Салат</span><span class="menu-price">2 050 ₸</span></div>
+      </div>
+      <div class="menu-card" data-cat="salads">
+        <span class="menu-card-icon">🐟</span>
+        <h3>Панчан</h3>
+        <p>Маринованный судак с редькой</p>
+        <div class="menu-card-footer"><span class="menu-tag">Салат</span><span class="menu-price">3 750 ₸</span></div>
+      </div>
+      <div class="menu-card" data-cat="salads">
+        <span class="menu-card-icon">🌊</span>
+        <h3>Хе из рыбы</h3>
+        <p>Филе судака, огурцы, перец, лук</p>
+        <div class="menu-card-footer"><span class="menu-tag">Салат</span><span class="menu-price">4 350 ₸</span></div>
+      </div>
+      <div class="menu-card" data-cat="salads">
+        <span class="menu-card-icon">🦑</span>
+        <h3>Хе кальмары</h3>
+        <p>Кальмары, огурцы, перец</p>
+        <div class="menu-card-footer"><span class="menu-tag">Салат</span><span class="menu-price">3 650 ₸</span></div>
+      </div>
+      <div class="menu-card" data-cat="salads">
+        <span class="menu-card-icon">🫀</span>
+        <h3>Хе из пупков</h3>
+        <p>Куриные пупки, морковь, перец, лук</p>
+        <div class="menu-card-footer"><span class="menu-tag">Салат</span><span class="menu-price">3 650 ₸</span></div>
+      </div>
+      <div class="menu-card" data-cat="salads">
+        <span class="menu-card-icon">🍄</span>
+        <h3>Хе из грибов</h3>
+        <p>Грибы, перец, лук</p>
+        <div class="menu-card-footer"><span class="menu-tag">Салат</span><span class="menu-price">3 400 ₸</span></div>
+      </div>
+      <div class="menu-card" data-cat="salads">
+        <span class="menu-card-icon">🫘</span>
+        <h3>Тиргуми</h3>
+        <p>Проросшие бобы</p>
+        <div class="menu-card-footer"><span class="menu-tag">Салат</span><span class="menu-price">2 970 ₸</span></div>
+      </div>
+      <div class="menu-card" data-cat="salads">
+        <span class="menu-card-icon">🥗</span>
+        <h3>Комплекс салатов (5 видов по 100г)</h3>
+        <p>Проросшие бобы, чимчи, морков ча, камди ча, грибы</p>
+        <div class="menu-card-footer"><span class="menu-tag">Набор</span><span class="menu-price">4 700 ₸</span></div>
+      </div>
+      <div class="menu-card" data-cat="salads">
+        <span class="menu-card-icon">🌊</span>
+        <h3>Комплекс из хе (5 видов по 100г)</h3>
+        <p>Хе из рыбы, хе кальмары, хе грибы, хе пупки, хе требуха</p>
+        <div class="menu-card-footer"><span class="menu-tag">Набор</span><span class="menu-price">5 450 ₸</span></div>
+      </div>
+
+      <!-- ТЁПЛЫЕ САЛАТЫ -->
+      <div class="menu-card" data-cat="warm">
+        <span class="menu-card-icon">🌶️</span>
+        <h3>Чимчи жареный с мясом</h3>
+        <p>Чимчи, мясо</p>
+        <div class="menu-card-footer"><span class="menu-tag">Тёплый</span><span class="menu-price">3 750 ₸</span></div>
+      </div>
+      <div class="menu-card" data-cat="warm">
+        <span class="menu-card-icon">🌿</span>
+        <h3>Чесночные стрелки</h3>
+        <p>Чесночные стрелки, мясо</p>
+        <div class="menu-card-footer"><span class="menu-tag">Тёплый</span><span class="menu-price">3 750 ₸</span></div>
+      </div>
+      <div class="menu-card" data-cat="warm">
+        <span class="menu-card-icon">🫀</span>
+        <h3>Требуха жареная</h3>
+        <p>Говяжий рубец</p>
+        <div class="menu-card-footer"><span class="menu-tag">Тёплый</span><span class="menu-price">3 750 ₸</span></div>
+      </div>
+      <div class="menu-card" data-cat="warm">
+        <span class="menu-card-icon">🍜</span>
+        <h3>Джапче (фунчеза)</h3>
+        <p>Фунчеза, перец светофор, мясо, омлет, древесный гриб</p>
+        <div class="menu-card-footer"><span class="menu-tag">Тёплый</span><span class="menu-price">4 350 ₸</span></div>
+      </div>
+      <div class="menu-card" data-cat="warm">
+        <span class="menu-card-icon">🌊</span>
+        <h3>Меги ча</h3>
+        <p>Морская капуста жареная</p>
+        <div class="menu-card-footer"><span class="menu-tag">Тёплый</span><span class="menu-price">3 580 ₸</span></div>
+      </div>
+      <div class="menu-card" data-cat="warm">
+        <span class="menu-card-icon">🌶️</span>
+        <h3>Кимчи тыби покум</h3>
+        <p>Чимчи, тофу, мясо, полугорький перец</p>
+        <div class="menu-card-footer"><span class="menu-tag">Острое</span><span class="menu-price">4 350 ₸</span></div>
+      </div>
+      <div class="menu-card" data-cat="warm">
+        <span class="menu-card-icon">🐷</span>
+        <h3>Ушки жареные</h3>
+        <p>Свиные ушки, полугорький перец, лук, уксус</p>
+        <div class="menu-card-footer"><span class="menu-tag">Тёплый</span><span class="menu-price">3 500 ₸</span></div>
+      </div>
+      <div class="menu-card" data-cat="warm">
+        <span class="menu-card-icon">🥢</span>
+        <h3>Тыби покум</h3>
+        <p>Тофу, мясо, лук, полугорький перец</p>
+        <div class="menu-card-footer"><span class="menu-tag">Тёплый</span><span class="menu-price">3 950 ₸</span></div>
+      </div>
+      <div class="menu-card" data-cat="warm">
+        <span class="menu-card-icon">🫑</span>
+        <h3>Перец по-корейски с фаршем</h3>
+        <p>Полугорький перец в кляре, с фаршем из мяса (говядина)</p>
+        <div class="menu-card-footer"><span class="menu-tag">Тёплый</span><span class="menu-price">4 350 ₸</span></div>
+      </div>
+      <div class="menu-card" data-cat="warm">
+        <span class="menu-card-icon">🍄</span>
+        <h3>Тофу с грибами</h3>
+        <p>Тофу, грибы шампиньоны, зелень, бальзамический соус</p>
+        <div class="menu-card-footer"><span class="menu-tag">Тёплый</span><span class="menu-price">3 450 ₸</span></div>
+      </div>
+
+      <!-- ЗАКУСКИ -->
+      <div class="menu-card" data-cat="snacks">
+        <span class="menu-card-icon">🫓</span>
+        <h3>Пегодя</h3>
+        <p>Дрожжевое тесто на пару, капуста, мясо (3 шт), соевый соус</p>
+        <div class="menu-card-footer"><span class="menu-tag">Хит</span><span class="menu-price">3 350 ₸</span></div>
+      </div>
+      <div class="menu-card" data-cat="snacks">
+        <span class="menu-card-icon">🥐</span>
+        <h3>Пампушки на пару</h3>
+        <p>Дрожжевое тесто на пару (1 шт)</p>
+        <div class="menu-card-footer"><span class="menu-tag">Закуска</span><span class="menu-price">650 ₸</span></div>
+      </div>
+      <div class="menu-card" data-cat="snacks">
+        <span class="menu-card-icon">🥐</span>
+        <h3>Пампушки жаренные</h3>
+        <p>1 шт</p>
+        <div class="menu-card-footer"><span class="menu-tag">Закуска</span><span class="menu-price">750 ₸</span></div>
+      </div>
+      <div class="menu-card" data-cat="snacks">
+        <span class="menu-card-icon">🥟</span>
+        <h3>Чебуреки</h3>
+        <p>Мини чебуреки (6 шт)</p>
+        <div class="menu-card-footer"><span class="menu-tag">Закуска</span><span class="menu-price">3 750 ₸</span></div>
+      </div>
+      <div class="menu-card" data-cat="snacks">
+        <span class="menu-card-icon">🌯</span>
+        <h3>Ким Паб Сёмга</h3>
+        <p>Рис, сёмга, листья нори, перец, морковь, огурец, соевый соус</p>
+        <div class="menu-card-footer"><span class="menu-tag">Закуска</span><span class="menu-price">3 550 ₸</span></div>
+      </div>
+      <div class="menu-card" data-cat="snacks">
+        <span class="menu-card-icon">🌯</span>
+        <h3>Ким Паб Мясо</h3>
+        <p>Рис, мясо говядины, листья нори, перец, морковь, огурец, соевый соус</p>
+        <div class="menu-card-footer"><span class="menu-tag">Хит</span><span class="menu-price">3 550 ₸</span></div>
+      </div>
+      <div class="menu-card" data-cat="snacks">
+        <span class="menu-card-icon">🌯</span>
+        <h3>Ким Паб Колбаса</h3>
+        <p>Рис, колбаса, листья нори, перец, морковь, огурец, соевый соус</p>
+        <div class="menu-card-footer"><span class="menu-tag">Закуска</span><span class="menu-price">3 550 ₸</span></div>
+      </div>
+      <div class="menu-card" data-cat="snacks">
+        <span class="menu-card-icon">🌯</span>
+        <h3>Ким Паб Кальмары</h3>
+        <p>Рис, кальмары, листья нори, перец, морковь, огурец, соевый соус</p>
+        <div class="menu-card-footer"><span class="menu-tag">Закуска</span><span class="menu-price">3 550 ₸</span></div>
+      </div>
+      <div class="menu-card" data-cat="snacks">
+        <span class="menu-card-icon">🫑</span>
+        <h3>Перец жареный с мясом</h3>
+        <p>Перец полугорький, фарш мясной, кляр</p>
+        <div class="menu-card-footer"><span class="menu-tag">Закуска</span><span class="menu-price">3 350 ₸</span></div>
+      </div>
+
+      <!-- РЫБА -->
+      <div class="menu-card" data-cat="fish">
+        <span class="menu-card-icon">🐟</span>
+        <h3>Сазан</h3>
+        <p>Сазан жареный</p>
+        <div class="menu-card-footer"><span class="menu-tag">Рыба</span><span class="menu-price">3 500 ₸</span></div>
+      </div>
+      <div class="menu-card" data-cat="fish">
+        <span class="menu-card-icon">🐟</span>
+        <h3>Камбала</h3>
+        <p>Камбала жареная</p>
+        <div class="menu-card-footer"><span class="menu-tag">Рыба</span><span class="menu-price">4 350 ₸</span></div>
+      </div>
+      <div class="menu-card" data-cat="fish">
+        <span class="menu-card-icon">🐟</span>
+        <h3>Мойва на шпажках</h3>
+        <p>Мойва на шпажках жареная</p>
+        <div class="menu-card-footer"><span class="menu-tag">Рыба</span><span class="menu-price">3 000 ₸</span></div>
+      </div>
+      <div class="menu-card" data-cat="fish">
+        <span class="menu-card-icon">🐟</span>
+        <h3>Скумбрия</h3>
+        <p>Скумбрия жареная</p>
+        <div class="menu-card-footer"><span class="menu-tag">Рыба</span><span class="menu-price">4 100 ₸</span></div>
+      </div>
+      <div class="menu-card" data-cat="fish">
+        <span class="menu-card-icon">🐟</span>
+        <h3>Стейк из сёмги</h3>
+        <p>Сёмга жареная</p>
+        <div class="menu-card-footer"><span class="menu-tag">Рыба</span><span class="menu-price">6 200 ₸</span></div>
+      </div>
+      <div class="menu-card" data-cat="fish">
+        <span class="menu-card-icon">🐑</span>
+        <h3>Бараньи рёбра на сковородке</h3>
+        <p>Бараньи рёбра, перец светофор</p>
+        <div class="menu-card-footer"><span class="menu-tag">Баранина</span><span class="menu-price">4 750 ₸</span></div>
+      </div>
+
+      <!-- ГАРНИРЫ -->
+      <div class="menu-card" data-cat="sides">
+        <span class="menu-card-icon">🍚</span>
+        <h3>Рис</h3>
+        <p>Отварной рис</p>
+        <div class="menu-card-footer"><span class="menu-tag">Хит</span><span class="menu-price">1 100 ₸</span></div>
+      </div>
+      <div class="menu-card" data-cat="sides">
+        <span class="menu-card-icon">🍟</span>
+        <h3>Картофельные шарики</h3>
+        <p>Картофельные шарики жареные</p>
+        <div class="menu-card-footer"><span class="menu-tag">Гарнир</span><span class="menu-price">1 500 ₸</span></div>
+      </div>
+      <div class="menu-card" data-cat="sides">
+        <span class="menu-card-icon">🍟</span>
+        <h3>Картофельные дольки</h3>
+        <p>Картофельные дольки жареные</p>
+        <div class="menu-card-footer"><span class="menu-tag">Гарнир</span><span class="menu-price">1 500 ₸</span></div>
+      </div>
+      <div class="menu-card" data-cat="sides">
+        <span class="menu-card-icon">🍟</span>
+        <h3>Фри</h3>
+        <p>Картофель фри</p>
+        <div class="menu-card-footer"><span class="menu-tag">Гарнир</span><span class="menu-price">1 500 ₸</span></div>
+      </div>
+
+    </div>
+    <div class="menu-cta">
+      <div>
+        <h3>Хотите заказать с доставкой?</h3>
+        <p>Весь ассортимент доступен на Wolt. Доставка по всему Алматы, 10:00 — 23:00.</p>
+      </div>
+      <a href="https://wolt.com/ru/kaz/almaty/restaurant/kym-gan-san" target="_blank" class="btn-wolt" style="font-size:16px;padding:18px 36px;">
+        <svg id="Layer_1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 386.35 386.31" style="width: 20px;"><defs><style>.cls-1{fill:#fff;}.cls-2{fill:#00c2e8;}</style></defs><path class="cls-1" d="M193.17,386.31c106.69,0,193.17-86.48,193.17-193.15S299.86,0,193.17,0,0,86.48,0,193.15s86.49,193.15,193.17,193.15"/><path class="cls-2" d="M193.17,368.21c96.68,0,175.05-78.37,175.05-175.05S289.85,18.1,193.17,18.1,18.12,96.47,18.12,193.15s78.37,175.05,175.05,175.05"/><path class="cls-1" d="M163.93,147.91c-2.84-.03-5.36.09-6.61.21-2.49.23-3.35,2.59-3.19,4.91,2.33,33.67-5.42,72.78-13.85,72.7-6.27-.06-7.87-18.37-7.72-34.66.08-9.62.71-18.89,1.01-27.08.11-3.04-.99-3.62-3.18-3.9-3.32-.43-5.7-.45-9.01.25-2.53.54-3.14,2.61-5.85,8.89-13.49,31.31-26.46,56.45-26.46,56.45-3.15-25.34,1.39-49.85,5.23-67.73.53-2.47-.64-3.93-2.66-3.92-3.82.03-9.67.11-12.33,1.81-2.49,1.6-3.43,3.33-4.18,6.9-4.27,20.49-7.15,46.2-3.21,66.14.85,4.31,1.84,5.33,3.65,6.48,1.81,1.14,9.59,2.22,12.62,2.25,3.43.03,6.58-.86,9.24-5.33,5.62-9.44,10.14-18.88,18.67-37.08.66,23.8,3.85,42.51,20.57,42.66,22.16.19,36.94-55.04,37.17-81.68.07-7.05-3.42-8.23-9.89-8.29"/><path class="cls-1" d="M196.51,229.16c-4.92-.04-8.17-4.31-8.09-12.72.14-16.13,6.03-33.43,16.34-33.33,1.16,0,2.18.17,3.09.54-.17.62-.3,1.14-.35,1.42-1.62,9.14.21,14.98,4.55,18.24-2.36,14.14-8.72,25.91-15.54,25.85M315.03,178.58s-7.48-.46-16.1-.92c0,0,1.83-9.55,2.71-13.45.44-1.9-.56-3.81-2.96-4.42-2.39-.6-7.89-.69-9.75-.49-1.54.16-3.05,1.07-3.41,2.67-.91,3.99-1.85,8.8-2.98,14.95-3.2-.11-6.31-.16-8.46-.14-2.01.02-2.97,1.04-3.39,2.69-.43,1.65-.79,4.01-.95,6.46-.12,1.85,1.9,2.75,3.98,2.69,0,0,2.55-.09,6.56-.25-.77,3.5-2.34,12.89-2.95,18.73-3.72,12.12-11.3,21.02-17.77,20.96-3.96-.03-6.3-2.41-6.24-9.53.09-9.87,2.46-22.33,5.88-34.81,4.76-11.18,7.55-23.63,7.6-29.29.02-2.13-.61-4.51-3.15-5.04-4.59-.96-8.97-.82-12.04.1-2.75.83-3.33,3.7-3.67,5.23-1.65,7.37-4.35,20.42-6.26,31.87-4.06,4.84-8.72,8.22-13.73,9.02-.65-15.19-9.42-21.78-21.59-21.89-21.37-.19-35.15,18.73-35.34,40.1-.15,17.31,9.23,24.61,22.98,24.74,16.23.14,28.41-11.28,33.11-32.36,4.61-.9,8.61-3.09,12.08-6.16,0,0-2.7,13.07-2.77,20.75-.11,11.65,4.84,18.19,16.58,18.29,9.66.09,18.15-6.65,23.49-14.89,1.32,10.83,6.93,15.16,16.11,15.24,8.43.07,16.6-5.2,22.42-14.83,1.16-1.92,2.01-3.6,1.3-4.45-1.65-1.93-4.82-2.95-5.71-1.37-3.85,6.9-7.94,9.66-12.37,9.62-3.51-.03-6.33-2.14-6.27-8.22.07-8.76,5.21-32.38,5.21-32.38,4.33-.12,9.15-.23,13.73-.29,4.02-.06,6.87-1.26,7.6-5.07.43-2.27-.89-3.73-3.47-3.87"/></svg>
+        Заказать
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- REVIEWS -->
+<section id="reviews">
+  <div class="section-inner">
+    <div class="section-label">Отзывы гостей</div>
+    <h2 class="section-title">Что говорят наши гости</h2>
+    <div class="rating-hero">
+      <div class="rating-number">4.5</div>
+      <div>
+        <div class="stars">★★★★★</div>
+        <div class="rating-meta">на основе <strong>198+ отзывов</strong> на 2ГИС</div>
+        <div class="rating-platforms">
+          <span class="platform-badge">2ГИС · 4.5 ⭐</span>
+          <span class="platform-badge">Glovo · 86% рекомендуют</span>
+          <span class="platform-badge">Wolt · Доступно онлайн</span>
+        </div>
+      </div>
+    </div>
+    <div class="reviews-grid">
+      <div class="review-card"><div class="review-stars">★★★★★</div><p class="review-text">«Настоящее корейское кафе, очень уютно. Ходим туда лет 6, никогда не были разочарованы!»</p><div class="review-author">Постоянный гость · realkz.com</div></div>
+      <div class="review-card"><div class="review-stars">★★★★★</div><p class="review-text">«Порции просто огромные! Только тут наедаюсь. Кухня на высшем уровне — рекомендую всем!»</p><div class="review-author">Постоянный гость · realkz.com</div></div>
+      <div class="review-card"><div class="review-stars">★★★★★</div><p class="review-text">«Кухня очень вкусная и домашняя. После ремонта стало намного уютнее. Приходим семьёй!»</p><div class="review-author">Семейный гость · realkz.com</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- LOCATION -->
+<section id="location">
+  <div class="section-inner">
+    <div class="section-label">Адреса и контакты</div>
+    <h2 class="section-title">Две точки в Алматы</h2>
+    <p class="section-sub">Выберите удобное заведение или закажите доставку.</p>
+    <div class="location-grid">
+      <div class="branch-card">
+        <h3>📍 Брусиловского, 199</h3>
+        <div class="info-row"><div class="info-icon">🗺️</div><div class="info-text"><strong>Адрес</strong>ул. Е. Брусиловского, 199 (ул. Есенжанова)<br/>352 м от метро Сайран</div></div>
+        <div class="info-row"><div class="info-icon">⏰</div><div class="info-text"><strong>Режим работы</strong>Ежедневно 10:00 — 01:00</div></div>
+        <div class="info-row"><div class="info-icon">📞</div><div class="info-text"><strong>Телефон</strong><a href="tel:+7 775 841 1173">+7 775 841 1173</a><br/><a href="tel:+77758411173">+7 (775) 214‑86‑45</a></div></div>
+        <a href="https://go.2gis.com/IHq6j" target="_blank" class="map-link">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:16px;height:16px"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          Открыть на карте
+        </a>
+      </div>
+      <div class="branch-card">
+        <h3>📍 Фадеева, 5</h3>
+        <div class="info-row"><div class="info-icon">🗺️</div><div class="info-text"><strong>Адрес</strong>ул. Фадеева, 5<br/>(по Софье, ниже Ташкентской)</div></div>
+        <div class="info-row"><div class="info-icon">⏰</div><div class="info-text"><strong>Режим работы</strong>Ежедневно 10:00 — 02:00</div></div>
+        <div class="info-row"><div class="info-icon">📞</div><div class="info-text"><strong>Телефон</strong><a href="tel:+77272479838">+7 (727) 247‑98‑38</a><br/><a href="tel:+77474391411">+7 (747) 439‑14‑11</a></div></div>
+        <a href="https://go.2gis.com/wLdpy" target="_blank" class="map-link">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:16px;height:16px"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          Открыть на карте
+        </a>
+      </div>
+    </div>
+    <div class="branch-card" style="background:var(--red-lt);border:1.5px solid rgba(192,57,43,.15); margin-top: 32px;">
+        <h3 style="color:var(--red);">🚗 Доставка</h3>
+        <div class="info-row"><div class="info-icon">📦</div><div class="info-text"><strong>Заказ онлайн</strong>Доступна доставка через Wolt и Glovo</div></div>
+        <div class="info-row"><div class="info-icon">⏰</div><div class="info-text"><strong>Время доставки через Wolt</strong>Ежедневно 10:00 — 23:00</div></div>
+        <div class="info-row"><div class="info-icon">🎊</div><div class="info-text"><strong>Банкеты и корпоративы</strong>VIP-зал, летняя терраса, до 60 мест</div></div>
+        <a href="https://wa.me/77758411173?text=Здравствуйте!%20Хочу%20уточнить%20детали" target="_blank" class="btn-wa" style="margin-top:8px;justify-content:center;width:100%;box-sizing:border-box;">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 00-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.126.555 4.12 1.52 5.854L0 24l6.334-1.48A11.953 11.953 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 01-5.004-1.374l-.36-.213-3.76.877.915-3.653-.234-.376A9.818 9.818 0 1112 21.818z"/></svg>
+          Написать в WhatsApp
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<section id="cta">
+  <div class="section-inner">
+    <span class="section-label">Сделайте заказ прямо сейчас</span>
+    <h2 class="section-title">Голодны?<br/>Мы уже готовим</h2>
+    <p class="section-sub">Позвоните или напишите в WhatsApp — и через 30–45 минут горячая корейская кухня будет у вас.</p>
+    <div class="cta-action-group">
+      <a href="tel:+7 775 841 1173" class="btn-cta-white">
+        <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 8.81 19.79 19.79 0 01.01 2.18 2 2 0 012 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+        Позвонить: +7 (775) 841-11-73
+      </a>
+      <a href="https://wa.me/77758411173?text=Хочу%20сделать%20заказ!" target="_blank" class="btn-cta-wa">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 00-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.126.555 4.12 1.52 5.854L0 24l6.334-1.48A11.953 11.953 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 01-5.004-1.374l-.36-.213-3.76.877.915-3.653-.234-.376A9.818 9.818 0 1112 21.818z"/></svg>
+        Написать в WhatsApp
+      </a>
+    </div>
+    <p class="cta-micro">Или закажите доставку через <a href="https://wolt.com/ru/kaz/almaty/restaurant/kym-gan-san" target="_blank">Wolt</a> · Работаем ежедневно 10:00 — 02:00</p>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-logo">Кым-<span>Ган-Сан</span></div>
+    <div class="footer-tagline">Корейская &amp; Европейская кухня · Алматы</div>
+    <div class="footer-links">
+      <a href="tel:+7 775 841 1173">+7 775 841 1173</a>
+      <a href="https://wa.me/77758411173" target="_blank">WhatsApp</a>
+      <a href="https://wolt.com/ru/kaz/almaty/restaurant/kym-gan-san" target="_blank">Wolt</a>
+      <a href="https://www.instagram.com/kafe_kym_gan_san" target="_blank">Instagram</a>
+      <a href="#menu">Меню</a>
+      <a href="#location">Адреса</a>
+    </div>
+    <div class="footer-copy">© 2025 Кым-Ган-Сан. Алматы, Казахстан.</div>
+  </div>
+</footer>
+
+<!-- STICKY BAR -->
+<div class="sticky-bar">
+  <a href="tel:+7 775 841 1173" class="btn-call">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 8.81 19.79 19.79 0 01.01 2.18 2 2 0 012 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+    Позвонить
+  </a>
+  <a href="https://wa.me/77758411173?text=Хочу%20сделать%20заказ!" target="_blank" class="btn-wa-sticky">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 00-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.126.555 4.12 1.52 5.854L0 24l6.334-1.48A11.953 11.953 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 01-5.004-1.374l-.36-.213-3.76.877.915-3.653-.234-.376A9.818 9.818 0 1112 21.818z"/></svg>
+    WhatsApp
+  </a>
+</div>
+
+<script>
+  // Tab filtering — поддержка нескольких категорий через пробел в data-cat
+  const tabs = document.querySelectorAll('.tab-btn');
+  const cards = document.querySelectorAll('.menu-card');
+  tabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      tabs.forEach(t => t.classList.remove('active'));
+      tab.classList.add('active');
+      const cat = tab.dataset.cat;
+      cards.forEach(card => {
+        const cats = card.dataset.cat.split(' ');
+        if (cats.includes(cat)) { card.classList.add('show'); }
+        else { card.classList.remove('show'); }
+      });
+    });
+  });
+  // Sticky bar fade when hero CTAs visible
+  const heroCtas = document.querySelector('.hero-ctas');
+  const stickyBar = document.querySelector('.sticky-bar');
+  const obs = new IntersectionObserver(([e]) => {
+    stickyBar.style.opacity = e.isIntersecting ? '0' : '1';
+    stickyBar.style.pointerEvents = e.isIntersecting ? 'none' : 'auto';
+  }, { threshold: 0.5 });
+  obs.observe(heroCtas);
+</script>
+</body>
+</html>
